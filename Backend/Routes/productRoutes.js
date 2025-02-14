@@ -1,34 +1,69 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/product');
+const Producto = require('../models/product');
 
-// Post para la coleccion Product
+// 📌 Obtener todos los productos
+router.get('/', async (req, res) => {
+    try {
+        const productos = await Producto.find();
+        res.status(200).json(productos);
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).json({ error: "Hubo un error al obtener los datos" });
+    }
+});
 
+// 📌 Obtener productos con descuentos (`baje: true`)
+router.get('/baje', async (req, res) => {
+    try {
+        const productosConDescuento = await Producto.find({ baje: true });
+        res.status(200).json(productosConDescuento);
+    } catch (error) {
+        console.error('Error al obtener productos con descuento:', error);
+        res.status(500).json({ error: "Hubo un error al obtener los datos" });
+    }
+});
+
+// 📌 Crear un nuevo producto
 router.post('/', async (req, res) => {
     try {
-        const { nombre, descripcion, precio, stock, baje } = (req.body);
-        const newProduct = new Product({
-            nombre,descripcion,precio,stock,baje
+        const { nombre, descripcion, precio, stock, baje } = req.body;
+        const newProduct = new Producto({ 
+            nombre, 
+            descripcion, 
+            precio, 
+            stock, 
+            baje: baje || false 
         });
+
         const saveProduct = await newProduct.save();
         res.status(201).json(saveProduct);
-    }
-    catch (error) {
+    } catch (error) {
+        console.error('Error al crear el producto:', error);
         res.status(400).json({ message: error.message });
-        console.log('Error al crear el producto')
     }
-})
+});
 
-// Get para obtener todos los productos
-router.get('/product', async (req, res) => {
+// 📌 Disminuir el stock de un producto
+router.patch('/:id/disminuir', async (req, res) => {
     try {
-        await Product.find()
-        .then(
-            (Product) => res.status(200).json(Product))
-        .catch((err) => res.status(500).json( {error: err.message}));
-    }
-    catch(e){
-        res.status(500).json({ error: "hubo un error al obtener los datos"})
+        const productId = req.params.id;
+        const product = await Producto.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+
+        if (product.stock > 0) {
+            product.stock -= 1;
+            await product.save();
+            res.json(product);
+        } else {
+            res.status(400).json({ error: 'No hay stock disponible' });
+        }
+    } catch (error) {
+        console.error('Error al disminuir el stock:', error);
+        res.status(500).json({ error: error.message });
     }
 });
 

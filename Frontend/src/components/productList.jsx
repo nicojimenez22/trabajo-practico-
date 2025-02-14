@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { getProducts } from '../../controllers'; // Importa el servicio
+import React, { useEffect, useState } from "react";
+import { getProducts } from "../../controllers"; // Asegúrate de tener esta función
+import ProductCard from "./ProductCard";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProductList = () => {
-  const [product, setProducts] = useState([]);
+  const [productos, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,36 +15,44 @@ const ProductList = () => {
         setProducts(data);
         setLoading(false);
       } catch (err) {
-        setError('Error al cargar los productos');
+        setError("Error al cargar los productos");
         setLoading(false);
       }
     };
+
+     const handleDelete = async (id) => {
+    if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
+      try {
+        await deleteProduct(id);
+        setProductos(productos.filter((producto) => producto._id !== id));
+      } catch (error) {
+        alert("Error al eliminar el producto");
+      }
+    }
+  };
 
     fetchProducts();
   }, []);
 
   if (loading) {
-    return <div>Cargando productos...</div>;
+    return <div className="text-center mt-5">Cargando productos...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="alert alert-danger text-center">{error}</div>;
   }
-  console.log(product);
+
+  
 
   return (
-    <>
-    <div>
-      <h2>Lista de Productos</h2>
-      <ul>
-        {product.map((product) => (
-          <li key={product._id}>
-            {product.nombre} - ${product.precio} - {product.descripcion}
-          </li>
+    <div className="container mt-4">
+      <h2 className="text-center mb-4">Lista de Productos</h2>
+      <div className="row">
+        {productos.map((productos) => (
+          <ProductCard key={productos._id} productos={productos} />
         ))}
-      </ul>
+      </div>
     </div>
-    </>
   );
 };
 

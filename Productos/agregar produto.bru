@@ -1,0 +1,22 @@
+meta {
+  name: agregar produto
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/product
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombre": "ASDSDASD",
+    "precio": 1500,
+    "descripcion": "LA PAO EN TANGA",
+    "stock": 5,
+    "baje": false
+  }
+  
+}

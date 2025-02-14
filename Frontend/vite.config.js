@@ -1,14 +1,13 @@
+// vite.config.js
 import { defineConfig } from 'vite'
-//import react from '@vitejs/plugin-react'
-import React from 'react';
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
-export default {
+export default defineConfig({
+  plugins: [react()],
   server: {
-    port: 5173, // Cambiado a un puerto libre
+    port: 5173, // Puerto fijo para el frontend
     proxy: {
-      '/api': 'http://localhost:3000', // Asegúrate de que redirija las solicitudes de /api al backend
+      '/api': 'http://localhost:3000', // Redirige las solicitudes al backend
     },
   },
-};
-
+});
