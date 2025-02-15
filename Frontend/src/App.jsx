@@ -3,12 +3,17 @@ import ProductList from './components/productList'; // Asegúrate de usar la mis
 import  Navbar from './components/navbar';
 import Carousel from './components/hero';
 import AgregarProducto from './components/agregarProductos';
+import BeneficiosEcommerce from './components/benefecios';
+
 
 const App = () => {
   return (
     <>
     <div>
       < Navbar/>
+    </div>
+    <div>
+      <BeneficiosEcommerce  />
     </div>
     <div>
       <Carousel/>

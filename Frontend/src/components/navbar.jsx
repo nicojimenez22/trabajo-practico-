@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-3">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
         <div className="container">
           <a className="navbar-brand fw-bold" href="/">🛍️ Mi E-Commerce</a>
           <button 
@@ -35,6 +35,9 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+                <a className="nav-link" href="/">Login</a>
+              </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">Inicio</a>
               </li>

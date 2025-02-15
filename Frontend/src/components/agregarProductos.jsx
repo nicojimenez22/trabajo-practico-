@@ -15,7 +15,6 @@ const AgregarProducto = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validación del descuento
     if (baje && (isNaN(descuento) || descuento < 0 || descuento > 100)) {
       setMensaje("❌ El descuento debe estar entre 0 y 100.");
       setTipoMensaje("danger");
@@ -35,7 +34,6 @@ const AgregarProducto = () => {
       setMensaje("✅ Producto agregado correctamente.");
       setTipoMensaje("success");
 
-      // Limpiar formulario
       setNombre("");
       setPrecio("");
       setCantidad("");
@@ -50,27 +48,31 @@ const AgregarProducto = () => {
 
   return (
     <motion.div
-      className="container mt-4"
+      className="container mt-5"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="card p-4 shadow-lg border-0"
-        style={{ background: "#f8f9fa", borderRadius: "15px" }}
+        className="card p-5 shadow-lg border-0"
+        style={{
+          background: "#f1f8ff", // Fondo claro
+          borderRadius: "20px",
+          boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)",
+        }}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className="text-center mb-3 text-primary">🛒 Agregar Producto</h2>
+        <h2 className="text-center mb-4 text-primary">🛒 Agregar Producto</h2>
         <form onSubmit={handleSubmit}>
 
           {/* Nombre del producto */}
-          <motion.div className="mb-3" whileFocus={{ scale: 1.02 }}>
-            <label className="form-label fw-bold text-secondary">Nombre del producto:</label>
+          <motion.div className="mb-4" whileFocus={{ scale: 1.02 }}>
+            <label className="form-label fw-bold text-dark">Nombre del producto:</label>
             <input
               type="text"
-              className="form-control shadow-sm"
+              className="form-control shadow-lg"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
@@ -79,11 +81,11 @@ const AgregarProducto = () => {
           </motion.div>
 
           {/* Precio del producto */}
-          <motion.div className="mb-3" whileFocus={{ scale: 1.02 }}>
-            <label className="form-label fw-bold text-secondary">Precio:</label>
+          <motion.div className="mb-4" whileFocus={{ scale: 1.02 }}>
+            <label className="form-label fw-bold text-dark">Precio:</label>
             <input
               type="number"
-              className="form-control shadow-sm"
+              className="form-control shadow-lg"
               value={precio}
               onChange={(e) => setPrecio(e.target.value)}
               required
@@ -93,11 +95,11 @@ const AgregarProducto = () => {
           </motion.div>
 
           {/* Cantidad en stock */}
-          <motion.div className="mb-3" whileFocus={{ scale: 1.02 }}>
-            <label className="form-label fw-bold text-secondary">Cantidad en stock:</label>
+          <motion.div className="mb-4" whileFocus={{ scale: 1.02 }}>
+            <label className="form-label fw-bold text-dark">Cantidad en stock:</label>
             <input
               type="number"
-              className="form-control shadow-sm"
+              className="form-control shadow-lg"
               value={cantidad}
               onChange={(e) => setCantidad(e.target.value)}
               required
@@ -107,7 +109,7 @@ const AgregarProducto = () => {
           </motion.div>
 
           {/* Checkbox para aplicar descuento */}
-          <motion.div className="form-check mb-3" whileHover={{ scale: 1.1 }}>
+          <motion.div className="form-check mb-4" whileHover={{ scale: 1.1 }}>
             <input
               type="checkbox"
               className="form-check-input"
@@ -115,7 +117,7 @@ const AgregarProducto = () => {
               checked={baje}
               onChange={(e) => setBaje(e.target.checked)}
             />
-            <label className="form-check-label fw-bold text-secondary" htmlFor="descuento">
+            <label className="form-check-label fw-bold text-dark" htmlFor="descuento">
               ¿Tiene descuento?
             </label>
           </motion.div>
@@ -124,16 +126,16 @@ const AgregarProducto = () => {
           <AnimatePresence>
             {baje && (
               <motion.div
-                className="mb-3"
+                className="mb-4"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <label className="form-label fw-bold text-secondary">Porcentaje de descuento (%):</label>
+                <label className="form-label fw-bold text-dark">Porcentaje de descuento (%):</label>
                 <input
                   type="number"
-                  className="form-control shadow-sm"
+                  className="form-control shadow-lg"
                   value={descuento}
                   onChange={(e) => setDescuento(e.target.value)}
                   required={baje}
@@ -148,7 +150,7 @@ const AgregarProducto = () => {
           {/* Botón de enviar */}
           <motion.button
             type="submit"
-            className="btn btn-primary w-100"
+            className="btn btn-info w-100"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -159,7 +161,7 @@ const AgregarProducto = () => {
           <AnimatePresence>
             {mensaje && (
               <motion.div
-                className={`alert mt-3 text-center alert-${tipoMensaje}`}
+                className={`alert mt-4 text-center alert-${tipoMensaje}`}
                 role="alert"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}

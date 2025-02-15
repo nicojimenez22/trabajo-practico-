@@ -8,7 +8,7 @@ const ProductCard = ({ productos, onDelete }) => {
     event.preventDefault(); 
 
     try {
-      const response = await axios.post("http://localhost:3000/api/carrito", {
+      const response = await axios.post("http://localhost:3000/routes/carritoRoutes", {
         productoId: productos._id, 
         nombre: productos.nombre,
         precio: productos.precio,  
