@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../../controllers"; // Asegúrate de tener esta función
-import ProductCard from "./ProductCard";
+import ProductCard from "./productCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProductList = () => {

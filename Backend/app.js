@@ -17,8 +17,13 @@ const carritoRoutes = require('./Routes/carritoRoutes');
 
 app.use(express.json());
 app.use('/api/product', productRoutes);
-app.use("/api/carrito", carritoRoutes);
-app.use(cors());
+app.use("/api", carritoRoutes);
+
+app.use(cors({
+  origin: "http://localhost:5173", 
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type"
+}));
 
 app.get('/', (req, res) => {
     res.send('¡Hola desde el backend!');

@@ -47,15 +47,15 @@ router.post('/', async (req, res) => {
 // 📌 Disminuir el stock de un producto
 router.patch('/:id/disminuir', async (req, res) => {
     try {
-        const productId = req.params.id;
-        const product = await Producto.findById(productId);
+        const productoId = req.params.id;
+        const Producto = await Producto.findById(productoId);
 
         if (!product) {
             return res.status(404).json({ error: 'Producto no encontrado' });
         }
 
-        if (product.stock > 0) {
-            product.stock -= 1;
+        if (Producto.stock > 0) {
+            Producto.stock -= 1;
             await product.save();
             res.json(product);
         } else {

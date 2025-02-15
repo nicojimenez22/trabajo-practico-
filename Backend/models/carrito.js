@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Producto = require('./product');
 
 const CarritoSchema = new mongoose.Schema({
     productos: [
@@ -9,6 +10,7 @@ const CarritoSchema = new mongoose.Schema({
             cantidad: { type: Number, required: true, default: 1 }
         }
     ]
+    
 });
 
 module.exports = mongoose.model("Carrito", CarritoSchema);

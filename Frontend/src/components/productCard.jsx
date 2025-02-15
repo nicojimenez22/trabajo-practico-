@@ -6,7 +6,7 @@ const ProductCard = ({ productos, onDelete }) => {
   
   const handleSubmit = async (event) => {
     event.preventDefault(); 
-
+    
     try {
       const response = await axios.post("http://localhost:3000/api/carrito", {
         productoId: productos._id, 
