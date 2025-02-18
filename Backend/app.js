@@ -14,7 +14,6 @@ const productRoutes = require('./Routes/productRoutes');
 const carritoRoutes = require('./Routes/carritoRoutes');
 
 
-
 app.use(express.json());
 app.use('/api/product', productRoutes);
 app.use("/api", carritoRoutes);

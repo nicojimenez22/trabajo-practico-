@@ -1,26 +1,22 @@
-import React from 'react';
-import ProductList from './components/productList'; // Asegúrate de usar la misma capitalización del archivo
-import  Navbar from './components/navbar';
-import Carousel from './components/hero';
-import AgregarProducto from './components/agregarProductos';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
+import Home from "./components/home";
+import About from "./components/about";
+import Contact from "./components/contact";
+import Tienda from "./components/tienda";
 
-const App = () => {
+function App() {
   return (
-    <>
-    <div>
-      < Navbar/>
-    </div>
-    <div>
-      <Carousel/>
-    </div>
-    <div>
-      <ProductList/>
-    </div>
-    <div>
-      <AgregarProducto/>
-    </div>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Tienda />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

@@ -12,12 +12,13 @@ export const getProducts = async () => {
   };
 
 // Función para eliminar un producto por ID
+
 export const deleteProduct = async (id) => {
   try {
-    const response = await axios.delete(`/api/product/${id}`); // Ruta a la API
-    return response.data;
+    const response = await axios.delete(`/api/product/${id}`);
+    return response.data;  // Axios ya convierte la respuesta en JSON automáticamente
   } catch (error) {
-    console.error("Error al eliminar el producto:", error);
-    throw new Error("No se pudo eliminar el producto");
+    throw new Error("No se pudo eliminar el producto: " + error.response?.data?.message || error.message);
   }
 };
+

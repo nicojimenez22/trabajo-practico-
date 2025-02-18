@@ -1,18 +1,18 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
+import { deleteProduct } from "../../controllers"; // Importa la función deleteProduct
 
 const ProductCard = ({ productos, onDelete }) => {
-  
+
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
-    
+    event.preventDefault();
+
     try {
-      const response = await axios.post("http://localhost:3000/api/carrito", {
+      const response = await axios.post("http://localhost:3000/routes/carritoRoutes", {
         productoId: productos._id, 
         nombre: productos.nombre,
-        precio: productos.precio,  
-        cantidad: 1,               
+        precio: productos.precio,
+        cantidad: 1,
       });
 
       alert(response.data.mensaje); 
@@ -22,18 +22,17 @@ const ProductCard = ({ productos, onDelete }) => {
     }
   };
 
-  // Función para eliminar el producto
-  const handleDelete = async () => {
-    if (!window.confirm("¿Seguro que deseas eliminar este producto del carrito?")) return;
-
+  // Función para eliminar el producto usando la función deleteProduct de controllers.js
+  const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/product/${productos._id}`);
-      onDelete(productos._id); // Llamamos a onDelete para actualizar el estado en ProductList
+      await deleteProduct(id);  // Llamamos a deleteProduct pasando el ID del producto
+      setProductos(productos.filter((producto) => producto._id !== id));  // Actualizamos el estado eliminando el producto
     } catch (error) {
       console.error("Error al eliminar el producto", error);
       alert("No se pudo eliminar el producto.");
     }
   };
+
   return (
     <div className="col-md-4">
       <div className="card h-100 shadow-sm">
@@ -48,7 +47,7 @@ const ProductCard = ({ productos, onDelete }) => {
           <button className="btn btn-primary me-2" onClick={handleSubmit}>
             Agregar al carrito
           </button>
-          <button className="btn btn-danger" onClick={handleDelete}>
+          <button className="btn btn-danger" onClick={() => handleDelete(productos._id)}>
             Eliminar producto
           </button>
         </div>
@@ -58,4 +57,5 @@ const ProductCard = ({ productos, onDelete }) => {
 };
 
 export default ProductCard;
+
 

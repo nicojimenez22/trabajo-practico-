@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../../controllers"; // Asegúrate de tener esta función
+import { getProducts, deleteProduct } from "../../controllers"; // Asegúrate de tener esta función
 import ProductCard from "./productCard";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AgregarProducto from "./agregarProductos";
+
 
 const ProductList = () => {
   const [productos, setProducts] = useState([]);
@@ -24,7 +26,7 @@ const ProductList = () => {
     if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
       try {
         await deleteProduct(id);
-        setProductos(productos.filter((producto) => producto._id !== id));
+        setProducts(productos.filter((producto) => producto._id !== id));
       } catch (error) {
         alert("Error al eliminar el producto");
       }
@@ -52,6 +54,7 @@ const ProductList = () => {
           <ProductCard key={productos._id} productos={productos} />
         ))}
       </div>
+      <AgregarProducto />
     </div>
   );
 };

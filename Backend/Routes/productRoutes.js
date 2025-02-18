@@ -44,27 +44,17 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 📌 Disminuir el stock de un producto
-router.patch('/:id/disminuir', async (req, res) => {
+// 📌 Eliminar un producto
+router.delete('/:id', async (req, res) => {
     try {
         const productoId = req.params.id;
-        const Producto = await Producto.findById(productoId);
-
-        if (!product) {
-            return res.status(404).json({ error: 'Producto no encontrado' });
-        }
-
-        if (Producto.stock > 0) {
-            Producto.stock -= 1;
-            await product.save();
-            res.json(product);
-        } else {
-            res.status(400).json({ error: 'No hay stock disponible' });
-        }
+        const deletedProduct = await Producto.findByIdAndDelete(productoId);
+        res.json(deletedProduct);
     } catch (error) {
-        console.error('Error al disminuir el stock:', error);
+        console.error('Error al eliminar el producto:', error);
         res.status(500).json({ error: error.message });
     }
 });
+
 
 module.exports = router;
