@@ -14,9 +14,10 @@ const productRoutes = require('./Routes/productRoutes');
 const carritoRoutes = require('./Routes/carritoRoutes');
 
 
-app.use(express.json());
-app.use('/api/product', productRoutes);
-app.use("/api", carritoRoutes);
+app.use(express.json()); 
+app.use(cors());
+app.use('/api', productRoutes);
+app.use('/api', carritoRoutes);
 
 app.use(cors({
   origin: "http://localhost:5173", 

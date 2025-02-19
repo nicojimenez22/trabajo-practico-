@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Asegúrate de importar Bootstrap
+import CarritoModal from "./carritoModal";
 
 const Navbar = () => {
   return (
@@ -45,6 +46,7 @@ const Navbar = () => {
                 Contacto
               </NavLink>
             </li>
+            <CarritoModal />
           </ul>
         </div>
       </div>

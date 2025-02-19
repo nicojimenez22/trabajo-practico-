@@ -31,14 +31,14 @@ const BeneficiosEcommerce = () => {
   ];
 
   return (
-    <div id="beneficios" className="container text-center mt-4">
-      <div id="beneficios" className="row justify-content-center">
+    <div  className="container text-center mt-4">
+      <div  className="row justify-content-center">
         {beneficios.map((beneficio) => (
-          <div id="beneficios" key={beneficio.id} className="col-12 col-sm-6 col-md-3 mb-3">
-            <div id="beneficios" className="card p-2 shadow-sm border-0 rounded-2 small-card">
-              <div id="beneficios" className="mb-2">{beneficio.icono}</div>
-              <h6 id="beneficios" className="fw-bold">{beneficio.titulo}</h6>
-              <p id="beneficios" className="text-muted small">{beneficio.descripcion}</p>
+          <div  key={beneficio.id} className="col-12 col-sm-6 col-md-3 mb-3">
+            <div  className="card p-2 shadow-sm border-0 rounded-2 small-card">
+              <div  className="mb-2">{beneficio.icono}</div>
+              <h6  className="fw-bold">{beneficio.titulo}</h6>
+              <p  className="text-muted small">{beneficio.descripcion}</p>
             </div>
           </div>
         ))}

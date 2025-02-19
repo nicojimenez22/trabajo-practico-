@@ -1,62 +1,60 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct } from "../../controllers"; // Asegúrate de tener esta función
-import ProductCard from "./productCard";
-import "bootstrap/dist/css/bootstrap.min.css";
-import AgregarProducto from "./agregarProductos";
-
+import axios from "axios";
 
 const ProductList = () => {
-  const [productos, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+    const [productos, setProductos] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-        setLoading(false);
-      } catch (err) {
-        setError("Error al cargar los productos");
-        setLoading(false);
-      }
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/product")
+            .then((response) => setProductos(response.data))
+            .catch((error) => console.error(error));
+    }, []);
+
+    const agregarAlCarrito = async (productoId) => {
+        try {
+            await axios.post("http://localhost:3000/api/carrito", {
+                productoId,
+                cantidad: 1,
+            });
+            alert("Producto agregado al carrito");
+        } catch (error) {
+            console.error("Error al agregar producto al carrito", error);
+            alert("Error al agregar producto al carrito");
+        }
     };
 
-     const handleDelete = async (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
-      try {
-        await deleteProduct(id);
-        setProducts(productos.filter((producto) => producto._id !== id));
-      } catch (error) {
-        alert("Error al eliminar el producto");
-      }
-    }
-  };
+    return (
+        <div className="container mt-4">
+            <h1 className="text-center mb-4">Productos</h1>
 
-    fetchProducts();
-  }, []);
-
-  if (loading) {
-    return <div className="text-center mt-5">Cargando productos...</div>;
-  }
-
-  if (error) {
-    return <div className="alert alert-danger text-center">{error}</div>;
-  }
-
-  
-
-  return (
-    <div className="container mt-4">
-      <h2 className="text-center mb-4">Lista de Productos</h2>
-      <div className="row">
-        {productos.map((productos) => (
-          <ProductCard key={productos._id} productos={productos} />
-        ))}
-      </div>
-      <AgregarProducto />
-    </div>
-  );
+            <div className="row">
+                {productos.length > 0 ? (
+                    productos.map((producto) => (
+                        <div key={producto._id} className="col-md-4 col-sm-6 mb-4">
+                            <div className="card h-100 shadow-sm">
+                                <div className="card-body text-center">
+                                    <h5 className="card-title">{producto.nombre}</h5>
+                                    <p className="card-text">{producto.descripcion}</p>
+                                    <p className="fw-bold text-success">Precio: ${producto.precio}</p>
+                                    <button 
+                                        className="btn btn-success"
+                                        onClick={() => agregarAlCarrito(producto._id)}
+                                    >
+                                        Agregar al carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center">Cargando productos...</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default ProductList;
+
+

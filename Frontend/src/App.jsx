@@ -4,6 +4,7 @@ import Home from "./components/home";
 import About from "./components/about";
 import Contact from "./components/contact";
 import Tienda from "./components/tienda";
+import ProductList from "./components/productList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
+
   );
 }
 
